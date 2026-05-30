@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>William Official</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+html, body{
+background:#0b1020;
+color:white;
+overflow-x:hidden;
+touch-action: manipulation;
+overscroll-behavior: none;
+}
+
+.hero{
+min-height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:20px;
+background:radial-gradient(circle at top,#2563eb,#0b1020 70%);
+}
+
+h1{
+font-size:clamp(3rem,8vw,6rem);
+margin-bottom:10px;
+}
+
+.subtitle{
+max-width:700px;
+font-size:1.2rem;
+margin-bottom:30px;
+}
+
+.aura-box{
+background:rgba(255,255,255,.1);
+padding:30px;
+border-radius:20px;
+backdrop-filter:blur(10px);
+}
+
+#aura{
+font-size:3rem;
+font-weight:bold;
+color:#60a5fa;
+}
+
+button{
+padding:14px 28px;
+margin:10px;
+border:none;
+border-radius:999px;
+cursor:pointer;
+font-weight:bold;
+}
+
+.primary{
+background:#3b82f6;
+color:white;
+}
+
+.secondary{
+background:white;
+color:black;
+}
+
+.section{
+padding:80px 20px;
+max-width:1100px;
+margin:auto;
+}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+.card{
+background:rgba(255,255,255,.08);
+padding:25px;
+border-radius:20px;
+}
+
+footer{
+text-align:center;
+padding:40px;
+background:#050814;
+margin-top:50px;
+}
+
+.stars{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+overflow:hidden;
+z-index:-1;
+}
+
+.star{
+position:absolute;
+width:3px;
+height:3px;
+background:white;
+border-radius:50%;
+animation:float linear infinite;
+}
+
+@keyframes float{
+from{transform:translateY(100vh);}
+to{transform:translateY(-100vh);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="stars" id="stars"></div>
+
+<section class="hero">
+<h1>👑 WILLIAM</h1>
+
+<p class="subtitle">
+Welcome to the official William website.
+Home of maximum aura, legendary coolness,
+and unstoppable rizz energy.
+</p>
+
+<div class="aura-box">
+<div id="aura">1000</div>
+<p>Aura Points</p>
+
+<button class="primary" onclick="gainAura()">🔥 Gain Aura</button>
+<button class="secondary" onclick="dailyReward()">🎁 Daily Reward</button>
+<button class="primary" onclick="randomizeAura()">🎲 Random Aura Event</button>
+
+<p style="margin-top:15px;">
+Level: <span id="level">1</span>
+</p>
+</div>
+</section>
+
+<section class="section">
+<h2>🏆 William Stats</h2>
+
+<div class="cards">
+<div class="card">
+<h3>🔥 Aura</h3>
+<p>Continuously evolving.</p>
+</div>
+
+<div class="card">
+<h3>😎 Coolness</h3>
+<p>Off the charts.</p>
+</div>
+
+<div class="card">
+<h3>⚡ Rizz</h3>
+<p>Unmeasurable energy.</p>
+</div>
+</div>
+</section>
+
+<footer>
+© 2026 William. All Rights Reserved.
+</footer>
+
+<script>
+
+let aura = Number(localStorage.getItem("aura")) || 1000;
+
+updateDisplay();
+
+// 🔥 Gain aura
+function gainAura(){
+aura += Math.floor(Math.random()*500)+100;
+saveData();
+}
+
+// 🎁 Daily reward
+function dailyReward(){
+
+let today = new Date().toDateString();
+
+if(localStorage.getItem("dailyReward") !== today){
+aura += 5000;
+localStorage.setItem("dailyReward", today);
+alert("🎁 Daily reward claimed! +5000 Aura");
+saveData();
+}else{
+alert("⏳ You already claimed today’s reward!");
+}
+
+}
+
+// 🎲 FULL AURA EVENT SYSTEM
+function randomizeAura(){
+
+let roll = Math.random();
+let message = "";
+
+// 💀 BAD EVENTS
+if(roll < 0.08){
+aura -= Math.floor(Math.random()*3000 + 1000);
+message = "💀 You slipped on air and lost aura!";
+}
+else if(roll < 0.16){
+aura = Math.max(0, aura - Math.floor(Math.random()*2000));
+message = "🥤 You spilled water on yourself mid aura moment!";
+}
+else if(roll < 0.24){
+aura = Math.floor(aura * 0.7);
+message = "😵 Reality glitch — aura weakened!";
+}
+
+// 😐 MID EVENTS
+else if(roll < 0.40){
+aura += Math.floor(Math.random()*800 + 200);
+message = "😎 You did a random backflip for style points!";
+}
+else if(roll < 0.55){
+aura += Math.floor(Math.random()*1200 + 500);
+message = "🔥 Someone said ‘nice drip’ — aura boosted!";
+}
+else if(roll < 0.65){
+aura += Math.floor(Math.random()*1500 + 300);
+message = "🚀 You walked like a final boss!";
+}
+
+// 🔥 GOOD EVENTS
+else if(roll < 0.80){
+aura += Math.floor(Math.random()*3000 + 1000);
+message = "⚡ Sigma energy activated!";
+}
+else if(roll < 0.93){
+aura += Math.floor(Math.random()*6000 + 2000);
+message = "👑 Crown energy detected — massive boost!";
+}
+
+// 🌟 LEGENDARY
+else{
+aura += Math.floor(Math.random()*15000 + 5000);
+message = "🌟 YOU BECAME PURE AURA ITSELF!";
+}
+
+alert(message);
+saveData();
+
+}
+
+// 💾 Save
+function saveData(){
+localStorage.setItem("aura", aura);
+updateDisplay();
+}
+
+// 📊 Update UI
+function updateDisplay(){
+document.getElementById("aura").innerText = aura.toLocaleString();
+document.getElementById("level").innerText = Math.floor(aura/5000)+1;
+}
+
+// ⭐ Stars
+for(let i=0;i<100;i++){
+let star = document.createElement("div");
+star.className = "star";
+star.style.left = Math.random()*100+"vw";
+star.style.animationDuration = (Math.random()*15+5)+"s";
+document.getElementById("stars").appendChild(star);
+}
+
+</script>
+
+</body>
+</html>
