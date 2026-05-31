@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>William Official</title>
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>William Aura Clicker V3</title>
 
 <style>
+
 *{
 margin:0;
 padding:0;
@@ -13,52 +15,38 @@ box-sizing:border-box;
 font-family:Arial,sans-serif;
 }
 
-html, body{
+html,body{
 background:#0b1020;
 color:white;
 overflow-x:hidden;
-touch-action: manipulation;
-overscroll-behavior: none;
+touch-action:manipulation;
+}
+
+body{
+padding-bottom:100px;
 }
 
 .hero{
-min-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
 text-align:center;
-padding:20px;
-background:radial-gradient(circle at top,#2563eb,#0b1020 70%);
+padding:40px 20px;
+background:
+radial-gradient(circle at top,#2563eb,#0b1020 70%);
 }
 
 h1{
 font-size:clamp(3rem,8vw,6rem);
-margin-bottom:10px;
-}
-
-.subtitle{
-max-width:700px;
-font-size:1.2rem;
-margin-bottom:30px;
-}
-
-.aura-box{
-background:rgba(255,255,255,.1);
-padding:30px;
-border-radius:20px;
-backdrop-filter:blur(10px);
 }
 
 #aura{
-font-size:3rem;
+font-size:4rem;
 font-weight:bold;
 color:#60a5fa;
+margin:20px 0;
 }
 
 button{
-padding:14px 28px;
-margin:10px;
+padding:12px 22px;
+margin:5px;
 border:none;
 border-radius:999px;
 cursor:pointer;
@@ -75,213 +63,846 @@ background:white;
 color:black;
 }
 
-.section{
-padding:80px 20px;
-max-width:1100px;
-margin:auto;
-}
-
-.cards{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
-}
-
-.card{
+.panel{
 background:rgba(255,255,255,.08);
-padding:25px;
+padding:20px;
+margin:20px;
 border-radius:20px;
 }
 
-footer{
-text-align:center;
-padding:40px;
-background:#050814;
-margin-top:50px;
+.shop-item{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:10px;
+margin:10px 0;
+background:rgba(255,255,255,.05);
+border-radius:10px;
 }
 
-.stars{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-pointer-events:none;
-overflow:hidden;
-z-index:-1;
+.badge{
+display:inline-block;
+padding:8px 12px;
+margin:4px;
+background:#2563eb;
+border-radius:999px;
 }
 
-.star{
-position:absolute;
-width:3px;
-height:3px;
-background:white;
-border-radius:50%;
-animation:float linear infinite;
+#eventLog{
+max-height:200px;
+overflow-y:auto;
+text-align:left;
 }
 
-@keyframes float{
-from{transform:translateY(100vh);}
-to{transform:translateY(-100vh);}
+.log{
+padding:6px;
+border-bottom:1px solid rgba(255,255,255,.1);
 }
+
 </style>
 </head>
 
 <body>
 
-<div class="stars" id="stars"></div>
-
 <section class="hero">
+
 <h1>👑 WILLIAM</h1>
 
-<p class="subtitle">
-Welcome to the official William website.
-Home of maximum aura, legendary coolness,
-and unstoppable rizz energy.
+<p>The Ultimate Aura Clicker</p>
+
+<div id="aura">0</div>
+
+<p>
+Rank:
+<span id="rank">
+Newbie
+</span>
 </p>
 
-<div class="aura-box">
-<div id="aura">1000</div>
-<p>Aura Points</p>
+<br>
 
-<button class="primary" onclick="gainAura()">🔥 Gain Aura</button>
-<button class="secondary" onclick="dailyReward()">🎁 Daily Reward</button>
-<button class="primary" onclick="randomizeAura()">🎲 Random Aura Event</button>
+<button
+class="primary"
+onclick="gainAura()">
+🔥 Gain Aura
+</button>
 
-<p style="margin-top:15px;">
-Level: <span id="level">1</span>
+<button
+class="secondary"
+onclick="randomEvent()">
+🎲 Random Event
+</button>
+
+<button
+class="primary"
+onclick="claimDaily()">
+🎁 Daily Reward
+</button>
+
+</section>
+
+<div class="panel">
+
+<h2>🔥 Daily Streak</h2>
+
+<p>
+Current Streak:
+<span id="streak">
+0
+</span>
+days
 </p>
-</div>
-</section>
 
-<section class="section">
-<h2>🏆 William Stats</h2>
+<p>
+Today's Aura:
+<span id="todayAura">
+0
+</span>
+/ 25000
+</p>
 
-<div class="cards">
-<div class="card">
-<h3>🔥 Aura</h3>
-<p>Continuously evolving.</p>
-</div>
-
-<div class="card">
-<h3>😎 Coolness</h3>
-<p>Off the charts.</p>
 </div>
 
-<div class="card">
-<h3>⚡ Rizz</h3>
-<p>Unmeasurable energy.</p>
-</div>
-</div>
-</section>
+<div class="panel">
 
-<footer>
-© 2026 William. All Rights Reserved.
-</footer>
+<h2>🏆 Badges</h2>
+
+<div id="badges">
+None Yet
+</div>
+
+</div>
+
+<div class="panel">
+
+<h2>📈 Statistics</h2>
+
+<p>Total Clicks:
+<span id="clicks">
+0
+</span>
+</p>
+
+<p>Highest Aura:
+<span id="highestAura">
+0
+</span>
+</p>
+
+<p>Legendary Events:
+<span id="legendaryCount">
+0
+</span>
+</p>
+
+</div>
+
+<div class="panel">
+
+<h2>🛒 Shop</h2>
+
+<div
+class="shop-item">
+
+<div>
+Better Clicks
+<br>
++100 Aura Per Click
+</div>
+
+<div>
+
+<p id="clickUpgradeCost">
+1000
+</p>
+
+<button
+onclick="buyClickUpgrade()">
+Buy
+</button>
+
+</div>
+
+</div>
+
+<div
+class="shop-item">
+
+<div>
+Aura Factory
+<br>
++25 Aura/sec
+</div>
+
+<div>
+
+<p id="factoryCost">
+5000
+</p>
+
+<button
+onclick="buyFactory()">
+Buy
+</button>
+
+</div>
+
+</div>
+
+<div
+class="shop-item">
+
+<div>
+Sigma Generator
+<br>
++250 Aura/sec
+</div>
+
+<div>
+
+<p id="sigmaCost">
+25000
+</p>
+
+<button
+onclick="buySigma()">
+Buy
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="panel">
+
+<h2>📜 Event Log</h2>
+
+<div id="eventLog">
+
+</div>
+
+</div>
 
 <script>
+  // ===== VERSION RESET =====
 
-let aura = Number(localStorage.getItem("aura")) || 1000;
+const GAME_VERSION = 3;
 
-updateDisplay();
+if(localStorage.getItem("gameVersion") != GAME_VERSION){
 
-// 🔥 Gain aura
+localStorage.clear();
+
+localStorage.setItem(
+"gameVersion",
+GAME_VERSION
+);
+
+}
+
+// ===== DATA =====
+
+let aura =
+Number(localStorage.getItem("aura")) || 0;
+
+let highestAura =
+Number(localStorage.getItem("highestAura")) || 0;
+
+let clicks =
+Number(localStorage.getItem("clicks")) || 0;
+
+let streak =
+Number(localStorage.getItem("streak")) || 0;
+
+let todayAura =
+Number(localStorage.getItem("todayAura")) || 0;
+
+let legendaryCount =
+Number(localStorage.getItem("legendaryCount")) || 0;
+
+let clickLevel =
+Number(localStorage.getItem("clickLevel")) || 1;
+
+let factories =
+Number(localStorage.getItem("factories")) || 0;
+
+let sigmaGenerators =
+Number(localStorage.getItem("sigmaGenerators")) || 0;
+
+let badges =
+JSON.parse(
+localStorage.getItem("badges")
+|| "[]"
+);
+
+// ===== COSTS =====
+
+function clickCost(){
+return Math.floor(
+1000 * Math.pow(1.35, clickLevel - 1)
+);
+}
+
+function factoryCost(){
+return Math.floor(
+5000 * Math.pow(1.45, factories)
+);
+}
+
+function sigmaCost(){
+return Math.floor(
+25000 * Math.pow(1.6, sigmaGenerators)
+);
+}
+
+// ===== SAVE =====
+
+function save(){
+
+localStorage.setItem("aura", aura);
+
+localStorage.setItem(
+"highestAura",
+highestAura
+);
+
+localStorage.setItem(
+"clicks",
+clicks
+);
+
+localStorage.setItem(
+"streak",
+streak
+);
+
+localStorage.setItem(
+"todayAura",
+todayAura
+);
+
+localStorage.setItem(
+"legendaryCount",
+legendaryCount
+);
+
+localStorage.setItem(
+"clickLevel",
+clickLevel
+);
+
+localStorage.setItem(
+"factories",
+factories
+);
+
+localStorage.setItem(
+"sigmaGenerators",
+sigmaGenerators
+);
+
+localStorage.setItem(
+"badges",
+JSON.stringify(badges)
+);
+
+}
+
+// ===== RANKS =====
+
+function getRank(){
+
+if(aura >= 10000000)
+return "🌌 Aura God";
+
+if(aura >= 1000000)
+return "👑 Mythic";
+
+if(aura >= 250000)
+return "🔥 Legend";
+
+if(aura >= 50000)
+return "⚡ Sigma";
+
+if(aura >= 10000)
+return "😎 Rising Aura";
+
+return "🙂 Newbie";
+
+}
+
+// ===== LOG =====
+
+function addLog(text){
+
+let div =
+document.createElement("div");
+
+div.className = "log";
+
+div.innerText = text;
+
+let log =
+document.getElementById(
+"eventLog"
+);
+
+log.prepend(div);
+
+while(log.children.length > 50){
+
+log.removeChild(
+log.lastChild
+);
+
+}
+
+}
+
+// ===== MAIN CLICK =====
+
 function gainAura(){
-aura += Math.floor(Math.random()*500)+100;
-saveData();
-}
 
-// 🎁 Daily reward
-function dailyReward(){
+let gain =
+100 * clickLevel;
 
-let today = new Date().toDateString();
+aura += gain;
 
-if(localStorage.getItem("dailyReward") !== today){
-aura += 5000;
-localStorage.setItem("dailyReward", today);
-alert("🎁 Daily reward claimed! +5000 Aura");
-saveData();
-}else{
-alert("⏳ You already claimed today’s reward!");
-}
+todayAura += gain;
+
+clicks++;
+
+if(aura > highestAura){
+
+highestAura = aura;
 
 }
 
-// 🎲 FULL AURA EVENT SYSTEM
-function randomizeAura(){
+checkBadges();
+
+save();
+
+updateUI();
+
+}
+ // ===== RANDOM EVENTS =====
+
+const goodEvents = [
+"You landed a triple backflip.",
+"You found legendary sunglasses.",
+"A dog approved your aura.",
+"You won an aura contest.",
+"You became the coolest person in the room.",
+"You unlocked sigma energy.",
+"You got complimented by a stranger.",
+"You successfully caught a falling object.",
+"You entered main character mode.",
+"You found hidden aura in your pocket."
+];
+
+const badEvents = [
+"You spilled water on yourself.",
+"You walked into a glass door.",
+"You dropped your fries.",
+"You tripped over nothing.",
+"You forgot why you entered the room.",
+"You lost an argument to a squirrel.",
+"You stepped on a LEGO.",
+"You sent the wrong text.",
+"Your shoe squeaked loudly.",
+"You missed a high five."
+];
+
+const legendaryEvents = [
+"You became the CEO of Aura.",
+"The universe approved your existence.",
+"You achieved maximum sigma.",
+"You bent reality with coolness.",
+"You became pure aura itself."
+];
+
+function randomEvent(){
 
 let roll = Math.random();
-let message = "";
 
-// 💀 BAD EVENTS
-if(roll < 0.08){
-aura -= Math.floor(Math.random()*3000 + 1000);
-message = "💀 You slipped on air and lost aura!";
-}
-else if(roll < 0.16){
-aura = Math.max(0, aura - Math.floor(Math.random()*2000));
-message = "🥤 You spilled water on yourself mid aura moment!";
-}
-else if(roll < 0.24){
-aura = Math.floor(aura * 0.7);
-message = "😵 Reality glitch — aura weakened!";
-}
+if(roll < 0.45){
 
-// 😐 MID EVENTS
-else if(roll < 0.40){
-aura += Math.floor(Math.random()*800 + 200);
-message = "😎 You did a random backflip for style points!";
-}
-else if(roll < 0.55){
-aura += Math.floor(Math.random()*1200 + 500);
-message = "🔥 Someone said ‘nice drip’ — aura boosted!";
-}
-else if(roll < 0.65){
-aura += Math.floor(Math.random()*1500 + 300);
-message = "🚀 You walked like a final boss!";
+let amount =
+Math.floor(Math.random()*3000)+500;
+
+let event =
+goodEvents[
+Math.floor(
+Math.random()*goodEvents.length
+)
+];
+
+aura += amount;
+todayAura += amount;
+
+addLog(
+"🔥 " + event +
+" +" + amount + " Aura"
+);
+
 }
 
-// 🔥 GOOD EVENTS
-else if(roll < 0.80){
-aura += Math.floor(Math.random()*3000 + 1000);
-message = "⚡ Sigma energy activated!";
-}
-else if(roll < 0.93){
-aura += Math.floor(Math.random()*6000 + 2000);
-message = "👑 Crown energy detected — massive boost!";
+else if(roll < 0.85){
+
+let amount =
+Math.floor(Math.random()*2000)+500;
+
+let event =
+badEvents[
+Math.floor(
+Math.random()*badEvents.length
+)
+];
+
+aura = Math.max(
+0,
+aura - amount
+);
+
+addLog(
+"💀 " + event +
+" -" + amount + " Aura"
+);
+
 }
 
-// 🌟 LEGENDARY
 else{
-aura += Math.floor(Math.random()*15000 + 5000);
-message = "🌟 YOU BECAME PURE AURA ITSELF!";
+
+let amount =
+Math.floor(Math.random()*15000)+5000;
+
+let event =
+legendaryEvents[
+Math.floor(
+Math.random()*legendaryEvents.length
+)
+];
+
+aura += amount;
+
+todayAura += amount;
+
+legendaryCount++;
+
+addLog(
+"🌟 LEGENDARY: " +
+event +
+" +" +
+amount +
+" Aura"
+);
+
 }
 
-alert(message);
-saveData();
+if(aura > highestAura){
+
+highestAura = aura;
 
 }
 
-// 💾 Save
-function saveData(){
-localStorage.setItem("aura", aura);
-updateDisplay();
+checkBadges();
+
+save();
+
+updateUI();
+
 }
 
-// 📊 Update UI
-function updateDisplay(){
-document.getElementById("aura").innerText = aura.toLocaleString();
-document.getElementById("level").innerText = Math.floor(aura/5000)+1;
+// ===== DAILY REWARD =====
+
+function claimDaily(){
+
+let today =
+new Date().toDateString();
+
+let lastClaim =
+localStorage.getItem(
+"lastClaim"
+);
+
+if(lastClaim === today){
+
+alert(
+"You already claimed today."
+);
+
+return;
+
 }
 
-// ⭐ Stars
-for(let i=0;i<100;i++){
-let star = document.createElement("div");
-star.className = "star";
-star.style.left = Math.random()*100+"vw";
-star.style.animationDuration = (Math.random()*15+5)+"s";
-document.getElementById("stars").appendChild(star);
+localStorage.setItem(
+"lastClaim",
+today
+);
+
+if(todayAura >= 25000){
+
+streak++;
+
+let reward =
+5000 * streak;
+
+aura += reward;
+
+addLog(
+"🎁 Daily streak completed! +" +
+reward +
+" Aura"
+);
+
+}else{
+
+streak = 0;
+
+addLog(
+"❌ Daily goal failed. Streak reset."
+);
+
 }
+
+todayAura = 0;
+
+save();
+
+updateUI();
+
+}
+
+// ===== SHOP =====
+
+function buyClickUpgrade(){
+
+let cost = clickCost();
+
+if(aura < cost){
+
+alert("Not enough Aura");
+
+return;
+
+}
+
+aura -= cost;
+
+clickLevel++;
+
+save();
+
+updateUI();
+
+}
+
+function buyFactory(){
+
+let cost =
+factoryCost();
+
+if(aura < cost){
+
+alert("Not enough Aura");
+
+return;
+
+}
+
+aura -= cost;
+
+factories++;
+
+save();
+
+updateUI();
+
+}
+
+function buySigma(){
+
+let cost =
+sigmaCost();
+
+if(aura < cost){
+
+alert("Not enough Aura");
+
+return;
+
+}
+
+aura -= cost;
+
+sigmaGenerators++;
+
+save();
+
+updateUI();
+
+}
+  // ===== BADGES =====
+
+function unlockBadge(name){
+
+if(!badges.includes(name)){
+
+badges.push(name);
+
+addLog(
+"🏆 Badge Unlocked: " +
+name
+);
+
+}
+
+}
+
+function checkBadges(){
+
+if(aura >= 10000)
+unlockBadge("Rising Aura");
+
+if(aura >= 50000)
+unlockBadge("Sigma");
+
+if(aura >= 250000)
+unlockBadge("Legend");
+
+if(aura >= 1000000)
+unlockBadge("Mythic");
+
+if(streak >= 7)
+unlockBadge("7 Day Streak");
+
+if(streak >= 30)
+unlockBadge("30 Day Streak");
+
+if(legendaryCount >= 10)
+unlockBadge("Legendary Hunter");
+
+}
+
+// ===== AUTO GENERATORS =====
+
+setInterval(function(){
+
+let gain = 0;
+
+gain += factories * 25;
+
+gain += sigmaGenerators * 250;
+
+if(gain > 0){
+
+aura += gain;
+
+todayAura += gain;
+
+if(aura > highestAura){
+
+highestAura = aura;
+
+}
+
+save();
+
+updateUI();
+
+}
+
+},1000);
+
+// ===== UI =====
+
+function updateUI(){
+
+document.getElementById(
+"aura"
+).innerText =
+Math.floor(aura).toLocaleString();
+
+document.getElementById(
+"rank"
+).innerText =
+getRank();
+
+document.getElementById(
+"streak"
+).innerText =
+streak;
+
+document.getElementById(
+"todayAura"
+).innerText =
+Math.floor(todayAura);
+
+document.getElementById(
+"clicks"
+).innerText =
+clicks.toLocaleString();
+
+document.getElementById(
+"highestAura"
+).innerText =
+Math.floor(highestAura)
+.toLocaleString();
+
+document.getElementById(
+"legendaryCount"
+).innerText =
+legendaryCount;
+
+document.getElementById(
+"clickUpgradeCost"
+).innerText =
+clickCost().toLocaleString();
+
+document.getElementById(
+"factoryCost"
+).innerText =
+factoryCost().toLocaleString();
+
+document.getElementById(
+"sigmaCost"
+).innerText =
+sigmaCost().toLocaleString();
+
+let badgeBox =
+document.getElementById(
+"badges"
+);
+
+if(badges.length === 0){
+
+badgeBox.innerHTML =
+"None Yet";
+
+}else{
+
+badgeBox.innerHTML =
+badges.map(
+b =>
+'<span class="badge">'+
+b+
+'</span>'
+).join("");
+
+}
+
+}
+
+// ===== STARTUP =====
+
+checkBadges();
+
+updateUI();
+
+addLog(
+"👑 William Aura Clicker Loaded"
+);
 
 </script>
 
